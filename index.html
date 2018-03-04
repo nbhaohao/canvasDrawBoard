@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="./index.css">
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/107255/46010/5a9b85f8f629d9135497a0c9.css' rel='stylesheet' type='text/css' />    
+    <script src="//at.alicdn.com/t/font_571516_srt9nid7rbfhia4i.js"></script>
+    <title>我的画板</title>
+</head>
+<body>
+    <main>
+        <h2 id="h2-i-title" class="css1094ac9c981a2f7">我的画板</h2>
+        <canvas id="canvas-i-myBoard"></canvas>
+        <div class="toolbar">
+            <svg class="icon drawTools toolActive" data-type="pen" aria-hidden="true">
+                <use xlink:href="#icon-paint-brush"></use>
+            </svg>
+            <svg class="icon drawTools" data-type="eraser" aria-hidden="true">
+                <use xlink:href="#icon-eraser"></use>
+            </svg>
+            <svg id="svg-i-settingBtn" class="icon" aria-hidden="true">
+                <use xlink:href="#icon-185055paintingpalletstreamline"></use>
+            </svg>
+            <svg id="svg-i-resetBtn" class="icon" aria-hidden="true">
+                <use xlink:href="#icon-custom-clear"></use>
+            </svg>
+            <svg id="svg-i-saveBtn" class="icon" aria-hidden="true">
+                <use xlink:href="#icon-download"></use>
+            </svg>
+        </div>
+    </main>
+    <a target="_blank" download="我的画" hidden id="a-i-saveMyPicture"></a>
+    <script src="./index.js"></script>
+</body>
+</html>

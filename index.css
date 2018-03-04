@@ -1,0 +1,7 @@
+* {margin: 0;padding: 0;}
+main {display: flex;flex-direction: column;}
+h2 { color: white;font-size: 4.2vh;text-align: center;padding: 1vh 0;background: linear-gradient(to bottom, #e5e1e0 0%,#5b5b5b 100%);}
+.icon {width: 1em; height: 1em;vertical-align: -0.15em;fill: currentColor;overflow: hidden;}
+.toolbar {display: flex;justify-content: space-around;background: linear-gradient(to bottom, #e5e1e0 0%,#5b5b5b 100%);padding:2vh 0;}
+.toolbar svg {vertical-align: top;width: 10vh;height:10vh;cursor: pointer;}
+.toolActive {fill:#007aff;}
