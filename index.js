@@ -8,6 +8,11 @@ var DEVICE_EVENT = {
     pc: {normalTouch: "click", touchStart: "mousedown", touching: "mousemove", touchEnd: "mouseup",},
     mobile: {normalTouch: "touchend", touchStart: "touchstart", touching: "touchmove", touchEnd: "touchend",},
 }
+var DRAW_BOARD_SETTING = {
+    painterSize: "6",
+    painterColor: "black",
+    eraserSize: "6",
+}
 //DEVICE_EVENT[DEVICE_TYPE].normalTouch
 
 var penTouchStart = function(xValue, yValue) {
@@ -31,15 +36,26 @@ var penTouchEnd = function() {
 }
 
 var eraserTouchStart = function(xValue, yValue) {
-    CANVAS_CONTEXT.clearRect(xValue - 5, yValue - 5, 10, 10)
+    let widthValue = DRAW_BOARD_SETTING.eraserSize
+    CANVAS_CONTEXT.clearRect(xValue - (widthValue / 2), yValue - (widthValue / 2), widthValue, widthValue)
 }
 
 var eraserTouching = function(xValue, yValue) {
-    CANVAS_CONTEXT.clearRect(xValue - 5, yValue - 5, 10, 10)
+    let widthValue = DRAW_BOARD_SETTING.eraserSize
+    CANVAS_CONTEXT.clearRect(xValue - (widthValue / 2), yValue - (widthValue / 2), widthValue, widthValue)
 }
 
 var eraserTouchEnd = function() {
     isUserTouching = false
+}
+
+var setOneElementHasSingleClass = function(element, className) {
+    var allClassNameELements = document.querySelectorAll("." + className)
+    for (let i = 0; i < allClassNameELements.length; i++) {
+        let item = allClassNameELements[i]
+        item.classList.remove(className)
+    }
+    element.classList.add(className)
 }
 
 var TOUCH_EVENT_FUNCS = {
@@ -48,9 +64,11 @@ var TOUCH_EVENT_FUNCS = {
 }
 
 function drawLine(x1, y1, x2, y2) {
-    CANVAS_CONTEXT.lineWidth = 8 //lineWidth
+    CANVAS_CONTEXT.lineWidth = DRAW_BOARD_SETTING.painterSize //lineWidth
     CANVAS_CONTEXT.lineJoin = "round" //是 canvas 画板让笔更加连续
     CANVAS_CONTEXT.lineCap = "round"
+    CANVAS_CONTEXT.stfillStyle = DRAW_BOARD_SETTING.painterColor
+    CANVAS_CONTEXT.strokeStyle = DRAW_BOARD_SETTING.painterColor
     CANVAS_CONTEXT.beginPath();
     CANVAS_CONTEXT.moveTo(x1, y1) // 起点
     CANVAS_CONTEXT.lineTo(x2, y2) // 终点
@@ -150,6 +168,66 @@ var bindSaveBtnEVent = function() {
     })
 }
 
+var bindPainterSizeEvent = function() {
+    let allPainterSizes = document.querySelectorAll(".painterSize")
+    for (let i = 0; i < allPainterSizes.length; i++) {
+        let item = allPainterSizes[i]
+        item.addEventListener(DEVICE_EVENT[DEVICE_TYPE].normalTouch, function(event) {
+            setOneElementHasSingleClass(item, "span-c-chooseBtnActive")
+            DRAW_BOARD_SETTING.painterSize = event.target.dataset.value
+        })
+    }
+}
+
+var bindPainterColorEvent = function() {
+    let allPainterColors = document.querySelectorAll(".span-c-colorBtn")
+    for (let j = 0; j < allPainterColors.length; j++) {
+        let item = allPainterColors[j]
+        item.addEventListener(DEVICE_EVENT[DEVICE_TYPE].normalTouch, function(event) {
+            setOneElementHasSingleClass(item, "colorBtn-border")
+            DRAW_BOARD_SETTING.painterColor = event.target.dataset.value
+        })
+    }
+}
+
+var bindEraserSizeEvent = function() {
+    let sizes = document.querySelectorAll(".span-c-eraserSize")
+    for (let n = 0; n < sizes.length; n++) {
+        let item = sizes[n]
+        item.addEventListener(DEVICE_EVENT[DEVICE_TYPE].normalTouch, function(event) {
+            setOneElementHasSingleClass(item, "span-c-eraserActive")
+            DRAW_BOARD_SETTING.eraserSize = event.target.dataset.value
+        })
+    }
+}
+
+var bindEditContentEvent = function() {
+    //painterSize
+    bindPainterSizeEvent()
+    bindPainterColorEvent()
+    bindEraserSizeEvent()
+}
+
+var bindMaskDivEvent = function() {
+    let div = document.querySelector("#div-i-maskContent")
+    div.addEventListener(DEVICE_EVENT[DEVICE_TYPE].normalTouch, function(event) {
+        let self = event.target
+        let currentSelf = event.currentTarget
+        if (self.classList.contains("content")) {
+            let maskDiv = document.querySelector(".maskDiv")
+            maskDiv.classList.remove("maskDivShow")
+        }
+    })
+}
+
+var bindSettingBtnEvent = function() {
+    let btn = document.querySelector("#svg-i-settingBtn")
+    btn.addEventListener(DEVICE_EVENT[DEVICE_TYPE].normalTouch, function(event) {
+        let maskDiv = document.querySelector(".maskDiv")
+        maskDiv.classList.add("maskDivShow")
+    })
+}
+
 var __main = function() {
     checkUserDevice()
     setCanvasSize()
@@ -157,7 +235,10 @@ var __main = function() {
     bindPenAndEraserBtnEvent()
     listenCanvasTouchEvent()
     bindResetBtnEvent()
+    bindSettingBtnEvent()
     bindSaveBtnEVent()
+    bindEditContentEvent()
+    bindMaskDivEvent()
 }
 
 __main()

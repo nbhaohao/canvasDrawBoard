@@ -1,7 +1,21 @@
 * {margin: 0;padding: 0;}
-main {display: flex;flex-direction: column;}
+main {position: fixed;}
 h2 { color: white;font-size: 4.2vh;text-align: center;padding: 1vh 0;background: linear-gradient(to bottom, #e5e1e0 0%,#5b5b5b 100%);}
 .icon {width: 1em; height: 1em;vertical-align: -0.15em;fill: currentColor;overflow: hidden;}
 .toolbar {display: flex;justify-content: space-around;background: linear-gradient(to bottom, #e5e1e0 0%,#5b5b5b 100%);padding:2vh 0;}
 .toolbar svg {vertical-align: top;width: 10vh;height:10vh;cursor: pointer;}
 .toolActive {fill:#007aff;}
+.maskDiv {position: absolute;top: 0;left: 0;right: 0;bottom: 0;background-color: transparent;display: none;}
+.maskDiv > .content {height: 100%;display: flex; flex-direction: column; justify-content: center;align-items: center;}
+.maskDiv > .content > div {padding: 4vh 2vh;border: 1px solid white;background-color: #d4d4d4;border-radius: 8px;}
+.maskDiv > .content > div p {display: flex;align-items: center;}
+.maskDiv > .content > div p + p {margin-top: 1.5vh;}
+.maskDivShow {display: block;}
+.span-c-chooseBtn {display: inline-block;padding: 1vh;border: 1px solid black;margin-right: 1vh;border-radius: 4px;cursor: pointer;}
+.span-c-chooseBtn.span-c-chooseBtnActive {background-color: #007aff; color: white;border: 1px solid #007aff;}
+.span-c-colorBtn {border:4px solid transparent; width: 30px;height: 30px;display: inline-block;border-radius: 50%;cursor: pointer;margin-right: 1vh;}
+.span-c-colorBtn.red {background-color: red;}
+.span-c-colorBtn.green {background-color: green;}
+.span-c-colorBtn.black {background-color: black;}
+.span-c-eraserActive {background-color: #007aff; color: white;border: 1px solid #007aff;}
+.colorBtn-border {border:4px solid #8e8e8e;}
